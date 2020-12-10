@@ -1,8 +1,10 @@
-package com.knighenko.sweetvinegar;
+package com.knighenko.sweetvinegar.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.knighenko.sweetvinegar.R;
 
 public class MainActivity extends AppCompatActivity {
 
