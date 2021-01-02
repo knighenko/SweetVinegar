@@ -25,6 +25,7 @@
         android:textColor="@color/purple_700" />
 
     <EditText
+        android:id="@+id/edit_text_e_mail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
@@ -38,6 +39,7 @@
         android:textColor="@color/purple_700" />
 
     <EditText
+        android:id="@+id/edit_text_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
@@ -46,6 +48,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="btnEnter"
         android:text="Вход"
         android:background="@drawable/button_bg"
         android:layout_marginHorizontal="30dp"
