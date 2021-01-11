@@ -2,29 +2,36 @@ package com.knighenko.sweetvinegar.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.knighenko.sweetvinegar.R;
+import com.knighenko.sweetvinegar.entity.Constants;
 import com.knighenko.sweetvinegar.model.ConnectServer;
 
 import java.io.IOException;
+import java.net.URL;
+
+import me.pushy.sdk.Pushy;
 
 public class MainActivity extends AppCompatActivity {
-    // private static final String SERVER_IP = "91.235.129.33";
-    private static final String SERVER_IP = "10.0.2.2";
-    private static final int PORT = 8080;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Pushy.listen(this);
+        if (!Pushy.isRegistered(this)) {
+            new RegisterForPushNotificationsAsync(this).execute();
+        }
     }
 
     /**
@@ -39,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 try {
 
-                    ConnectServer connectServer = new ConnectServer(SERVER_IP, PORT);
+                    ConnectServer connectServer = new ConnectServer(Constants.SERVER_IP, Constants.PORT);
                     response[0] = connectServer.readResponse(request);
 
                 } catch (IOException e) {
@@ -69,19 +76,65 @@ public class MainActivity extends AppCompatActivity {
             Toast toast = Toast.makeText(this, "Неправильно введён логин или пароль!", Toast.LENGTH_LONG);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
-        }
-        else {
-            Intent  intent = new Intent(this, FavouriteSearch.class);
+        } else {
+            Intent intent = new Intent(this, FavouriteSearch.class);
+            intent.putExtra("e_mail", e_mail);
+            intent.putExtra("password", password);
             startActivity(intent);
         }
     }
 
     /**
-     * Method doing when button Search (Мониторить) onClick
+     * Pushy class
      */
+    private class RegisterForPushNotificationsAsync extends AsyncTask<Void, Void, Object> {
+        Activity mActivity;
 
-    public void btnSearch(View view) {
-        String e_mail;
-        String password;
+        public RegisterForPushNotificationsAsync(Activity activity) {
+            this.mActivity = activity;
+        }
+
+        protected Object doInBackground(Void... params) {
+            try {
+                // Register the device for notifications
+                String deviceToken = Pushy.register(getApplicationContext());
+
+                // Registration succeeded, log token to logcat
+                Log.d("Pushy", "Pushy device token: " + deviceToken);
+
+                // Send the token to your backend server via an HTTP GET request
+                new URL("https://{YOUR_API_HOSTNAME}/register/device?token=" + deviceToken).openConnection();
+
+                // Provide token to onPostExecute()
+                return deviceToken;
+            } catch (Exception exc) {
+                // Registration failed, provide exception to onPostExecute()
+                return exc;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Object result) {
+            String message;
+
+            // Registration failed?
+            if (result instanceof Exception) {
+                // Log to console
+                Log.e("Pushy", result.toString());
+
+                // Display error in alert
+                message = ((Exception) result).getMessage();
+            } else {
+                message = "Pushy device token: " + result.toString() + "\n\n(copy from logcat)";
+            }
+
+            // Registration succeeded, display an alert with the device token
+            new android.app.AlertDialog.Builder(this.mActivity)
+                    .setTitle("Pushy")
+                    .setMessage(message)
+                    .setPositiveButton(android.R.string.ok, null)
+                    .show();
+        }
     }
+
 }
