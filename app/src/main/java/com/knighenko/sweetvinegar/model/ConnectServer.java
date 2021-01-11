@@ -13,10 +13,10 @@ public class ConnectServer {
     public ConnectServer(String host, int port) throws IOException {
         socket = new Socket(host, port);
     }
-    /**Метод для соединения с сервером, возвращает строку в виде Json
+    /**Метод для соединения с сервером, возвращает строку
      * @param request - адрес URL*/
 
-    public String readJsonString(String request) throws IOException {
+    public String readResponse(String request) throws IOException {
         outputStream = new DataOutputStream(socket.getOutputStream());
         System.out.println("Client connected to server");
         while (!socket.isOutputShutdown()) {
