@@ -75,10 +75,13 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
+
     /**
      * Method doing when button Search (Мониторить) onClick
      */
+
     public void btnSearch(View view) {
-        
+        String e_mail;
+        String password;
     }
 }

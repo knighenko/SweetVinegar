@@ -13,4 +13,5 @@ public class FavouriteSearch extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite_search);
     }
+
 }
