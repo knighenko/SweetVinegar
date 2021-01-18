@@ -36,10 +36,8 @@ public class CreateUserActivity extends AppCompatActivity {
         e_mail = ((EditText) findViewById(R.id.edit_text_e_mail_create_user)).getText().toString();
         password = ((EditText) findViewById(R.id.edit_text_password_create_user)).getText().toString();
         new RegisterForPushNotificationsAsync(this).execute();
-        String request = ConnectServer.connectToServerSearch("2:" + e_mail + ":" + password + ":" + deviceToken);
-        try {
+        String response = ConnectServer.connectToServerSearch("1:" + e_mail + ":" + password + ":" + deviceToken);
 
-            String response =  ConnectServer.connectToServerSearch(request);
             System.out.println(response);
             if (response.equals("false")) {
                 Toast toast = Toast.makeText(getBaseContext(), "Что-то пошло не так! Повторите регистрацию!", Toast.LENGTH_LONG);
@@ -53,10 +51,7 @@ public class CreateUserActivity extends AppCompatActivity {
                 startActivity(intent);
             }
 
-        } catch (Exception exc) {
-            // Registration failed, provide exception to onPostExecute()
-            exc.printStackTrace();
-        }
+
 
     }
 

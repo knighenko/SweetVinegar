@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         e_mail = ((EditText) findViewById(R.id.edit_text_e_mail)).getText().toString();
         password = ((EditText) findViewById(R.id.edit_text_password)).getText().toString();
         String response = ConnectServer.connectToServerSearch("1:" + e_mail + ":" + password);
-        System.out.println("Response is: " + response);
+
         if (response.equals("false")) {
             Toast toast = Toast.makeText(this, "Неправильно введён логин или пароль!", Toast.LENGTH_LONG);
             toast.setGravity(Gravity.CENTER, 0, 0);
