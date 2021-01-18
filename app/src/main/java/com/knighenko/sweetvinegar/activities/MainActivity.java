@@ -32,33 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    /**
-     * Method connecting to server with parameter Request
-     */
 
-    private String connectToServerSearch(String request) {
-
-        final String[] response = {"false"};
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-
-                    ConnectServer connectServer = new ConnectServer(Constants.SERVER_IP, Constants.PORT);
-                    response[0] = connectServer.readResponse(request);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return response[0];
-    }
 
     /**
      * Method doing when button Enter (Вход) onClick
@@ -68,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         String password;
         e_mail = ((EditText) findViewById(R.id.edit_text_e_mail)).getText().toString();
         password = ((EditText) findViewById(R.id.edit_text_password)).getText().toString();
-        String response = connectToServerSearch("1:" + e_mail + ":" + password);
+        String response = ConnectServer.connectToServerSearch("1:" + e_mail + ":" + password);
         System.out.println("Response is: " + response);
         if (response.equals("false")) {
             Toast toast = Toast.makeText(this, "Неправильно введён логин или пароль!", Toast.LENGTH_LONG);
@@ -82,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-
+/**Method create new user when click on "Создать новый аккаунт"*/
+    public void createUser(View view) {
+        Intent intent = new Intent(getBaseContext(), CreateUserActivity.class);
+        startActivity(intent);
+    }
 }

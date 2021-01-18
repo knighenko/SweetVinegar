@@ -1,5 +1,7 @@
 package com.knighenko.sweetvinegar.model;
 
+import com.knighenko.sweetvinegar.entity.Constants;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -34,5 +36,33 @@ public class ConnectServer {
             return message;
         }
         return null;
+    }
+
+    /**
+     * Method connecting to server with parameter Request
+     */
+
+    public static String connectToServerSearch(String request) {
+
+        final String[] response = {"false"};
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    ConnectServer connectServer = new ConnectServer(Constants.SERVER_IP, Constants.PORT);
+                    response[0] = connectServer.readResponse(request);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return response[0];
     }
 }

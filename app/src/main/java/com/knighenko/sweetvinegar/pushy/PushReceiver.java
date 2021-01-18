@@ -18,8 +18,10 @@ public class PushReceiver extends BroadcastReceiver {
         String notificationText = "Test notification";
 
         // Attempt to extract the "message" property from the payload: {"message":"Hello World!"}
-        if (intent.getStringExtra("message") != null) {
-            notificationText = intent.getStringExtra("message");
+
+        if (intent.getStringExtra("title") != null) {
+            notificationTitle = intent.getStringExtra("title");
+            notificationText = intent.getStringExtra("url");
         }
 
         // Prepare a notification with vibration, sound and lights

@@ -34,7 +34,7 @@ public class FavouriteSearch extends AppCompatActivity {
     public void btnSearch(View view) {
 
   /*
-       String[] request = {"2:" + getIntent().getStringExtra("e_mail")};
+       String[] request = {"3:" + getIntent().getStringExtra("e_mail")};
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -49,66 +49,12 @@ public class FavouriteSearch extends AppCompatActivity {
             }
         }).start();
         */
-            new RegisterForPushNotificationsAsync(this).execute();
+
 
 
 
     }
 
-    /**
-     * Pushy class
-     */
-    private class RegisterForPushNotificationsAsync extends AsyncTask<Void, Void, Object> {
-        Activity mActivity;
 
-        public RegisterForPushNotificationsAsync(Activity activity) {
-            this.mActivity = activity;
-        }
-
-        protected Object doInBackground(Void... params) {
-            try {
-                // Register the device for notifications
-                String deviceToken = Pushy.register(getApplicationContext());
-                String request = "2:" + getIntent().getStringExtra("e_mail")+":"+deviceToken;
-
-                ConnectServer connectServer = new ConnectServer(Constants.SERVER_IP, Constants.PORT);
-                connectServer.readResponse(request);
-                // Registration succeeded, log token to logcat
-                Log.d("Pushy", "Pushy device token: " + deviceToken);
-
-                // Send the token to your backend server via an HTTP GET request
-                //  new URL("https://{YOUR_API_HOSTNAME}/register/device?token=" + deviceToken).openConnection();
-
-                // Provide token to onPostExecute()
-                return deviceToken;
-            } catch (Exception exc) {
-                // Registration failed, provide exception to onPostExecute()
-                return exc;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(Object result) {
-            String message;
-
-            // Registration failed?
-            if (result instanceof Exception) {
-                // Log to console
-                Log.e("Pushy", result.toString());
-
-                // Display error in alert
-                message = ((Exception) result).getMessage();
-            } else {
-                message = "Pushy device token: " + result.toString() + "\n\n(copy from logcat)";
-            }
-
-            // Registration succeeded, display an alert with the device token
-            new android.app.AlertDialog.Builder(this.mActivity)
-                    .setTitle("Pushy")
-                    .setMessage(message)
-                    .setPositiveButton(android.R.string.ok, null)
-                    .show();
-        }
-    }
 
 }

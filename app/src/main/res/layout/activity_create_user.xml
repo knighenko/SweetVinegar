@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activities.MainActivity">
+    tools:context=".activities.CreateUserActivity">
 
     <TextView
         android:layout_width="match_parent"
@@ -20,12 +20,20 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="Введите e-mail и придумайте пароль"
+        android:textAlignment="center"
+        android:textColor="@color/purple_700"
+        android:layout_marginBottom="50dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
         android:text="E-mail:"
         android:textColor="@color/purple_700" />
 
     <EditText
-        android:id="@+id/edit_text_e_mail"
+        android:id="@+id/edit_text_e_mail_create_user"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
@@ -39,25 +47,20 @@
         android:textColor="@color/purple_700" />
 
     <EditText
-        android:id="@+id/edit_text_password"
+        android:id="@+id/edit_text_password_create_user"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
         android:layout_marginBottom="30dp" />
 
     <Button
+        android:id="@+id/create_user_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="btnEnter"
-        android:text="Вход"
-        android:background="@drawable/button_bg"
         android:layout_marginHorizontal="30dp"
-        android:layout_marginBottom="20dp"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="createUser"
-        android:text="Создать аккаунт, регистрация."
-        android:textAlignment="center"
-        android:textColor="@color/purple_700"/>
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/button_bg"
+        android:onClick="btnCreate"
+        android:text="Регистрация" />
+
 </LinearLayout>
