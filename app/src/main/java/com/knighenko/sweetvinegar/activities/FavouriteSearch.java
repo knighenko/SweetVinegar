@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import com.knighenko.sweetvinegar.R;
 import com.knighenko.sweetvinegar.entity.Constants;
@@ -20,11 +21,22 @@ import me.pushy.sdk.util.exceptions.PushyException;
 
 
 public class FavouriteSearch extends AppCompatActivity {
+    private Button buttonSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String push = getIntent().getStringExtra("push");
+        System.out.println("Push "+push);
+
         setContentView(R.layout.activity_favourite_search);
+        buttonSearch=findViewById(R.id.button_search);
+        if(push.equals("true")){
+            buttonSearch.setText("Начать мониторинг");
+        }
+        else {
+            buttonSearch.setText("Отменить мониторинг");
+        }
     }
 
     /**
@@ -51,10 +63,7 @@ public class FavouriteSearch extends AppCompatActivity {
         */
 
 
-
-
     }
-
 
 
 }

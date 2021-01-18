@@ -49,9 +49,11 @@ public class MainActivity extends AppCompatActivity {
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
         } else {
+            String push =ConnectServer.connectToServerSearch("3:"+e_mail);
             Intent intent = new Intent(this, FavouriteSearch.class);
             intent.putExtra("e_mail", e_mail);
             intent.putExtra("password", password);
+            intent.putExtra("push",push);
             startActivity(intent);
         }
     }
