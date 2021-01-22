@@ -36,20 +36,8 @@ public class CreateUserActivity extends AppCompatActivity {
         e_mail = ((EditText) findViewById(R.id.edit_text_e_mail_create_user)).getText().toString();
         password = ((EditText) findViewById(R.id.edit_text_password_create_user)).getText().toString();
         new RegisterForPushNotificationsAsync(this).execute();
-        String response = ConnectServer.connectToServerSearch("1:" + e_mail + ":" + password + ":" + deviceToken);
 
-            System.out.println(response);
-            if (response.equals("false")) {
-                Toast toast = Toast.makeText(getBaseContext(), "Что-то пошло не так! Повторите регистрацию!", Toast.LENGTH_LONG);
-                toast.setGravity(Gravity.CENTER, 0, 0);
-                toast.show();
-            } else {
-                Toast toast = Toast.makeText(getBaseContext(), "Регистрация проведена успешно!", Toast.LENGTH_LONG);
-                toast.setGravity(Gravity.CENTER, 0, 0);
-                toast.show();
-                Intent intent = new Intent(getBaseContext(), MainActivity.class);
-                startActivity(intent);
-            }
+
 
 
 
@@ -105,13 +93,19 @@ public class CreateUserActivity extends AppCompatActivity {
             }
 
             // Registration succeeded, display an alert with the device token
-          /*  new android.app.AlertDialog.Builder(this.mActivity)
-                    .setTitle("Pushy")
-                    .setMessage(message)
-                    .setPositiveButton(android.R.string.ok, null)
-                    .show();
-
-           */
+            String response = ConnectServer.connectToServerSearch("2:" + e_mail + ":" + password + ":" + deviceToken);
+            System.out.println(response);
+            if (response.equals("false")) {
+                Toast toast = Toast.makeText(getBaseContext(), "Что-то пошло не так! Повторите регистрацию!", Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+            } else {
+                Toast toast = Toast.makeText(getBaseContext(), "Регистрация проведена успешно!", Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+                Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                startActivity(intent);
+            }
         }
     }
 }

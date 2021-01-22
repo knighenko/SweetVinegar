@@ -19,11 +19,12 @@
 
 
     <Button
+
         android:id="@+id/button_search"
+        android:layout_marginTop="50dp"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:onClick="btnSearch"
-        android:background="@drawable/button_search"
-       android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:onClick="btnSearch" />
 
 </LinearLayout>

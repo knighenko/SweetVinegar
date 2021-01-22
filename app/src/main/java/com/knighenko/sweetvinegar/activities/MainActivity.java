@@ -1,24 +1,15 @@
 package com.knighenko.sweetvinegar.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.knighenko.sweetvinegar.R;
-import com.knighenko.sweetvinegar.entity.Constants;
 import com.knighenko.sweetvinegar.model.ConnectServer;
-
-import java.io.IOException;
-import java.net.URL;
-
+import com.knighenko.sweetvinegar.model.SaveSharedPreference;
 import me.pushy.sdk.Pushy;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,7 +20,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Pushy.listen(this);
-
+        if(SaveSharedPreference.getUserName(MainActivity.this).length() != 0)
+        {
+            System.out.println("--------------------------------------------------------Yes");
+        }
+        else
+        {
+            System.out.println("---------------------------------------------------------No");
+        }
     }
 
 
@@ -50,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
             toast.show();
         } else {
             String push =ConnectServer.connectToServerSearch("3:"+e_mail);
+            SaveSharedPreference.setUserName(MainActivity.this,e_mail);
             Intent intent = new Intent(this, FavouriteSearch.class);
             intent.putExtra("e_mail", e_mail);
             intent.putExtra("password", password);
