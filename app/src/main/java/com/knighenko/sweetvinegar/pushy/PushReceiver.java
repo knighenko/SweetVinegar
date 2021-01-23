@@ -1,6 +1,7 @@
 package com.knighenko.sweetvinegar.pushy;
 
 import me.pushy.sdk.Pushy;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.content.Context;
@@ -8,6 +9,7 @@ import android.app.PendingIntent;
 import android.media.RingtoneManager;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
+
 import androidx.core.app.NotificationCompat;
 
 import com.knighenko.sweetvinegar.activities.AdvertisementActivity;
@@ -16,16 +18,21 @@ import com.knighenko.sweetvinegar.activities.MainActivity;
 public class PushReceiver extends BroadcastReceiver {
     private static int notificationId = 2;
     public static final String CHANNEL_1 = "NotificationChannel";
+
     @Override
     public void onReceive(Context context, Intent intent) {
         String advTitle = "MyApp";
         String advUrl = "Test notification";
+        String imageSrc = "No Img";
+        String description="Нет описания";
 
         // Attempt to extract the "message" property from the payload: {"message":"Hello World!"}
 
         if (intent.getStringExtra("title") != null) {
             advTitle = intent.getStringExtra("title");
             advUrl = intent.getStringExtra("url");
+            advUrl = intent.getStringExtra("imageSrc");
+            advUrl = intent.getStringExtra("description");
         }
 
 
@@ -35,6 +42,8 @@ public class PushReceiver extends BroadcastReceiver {
                 | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         advIntent.putExtra("urlAdv", advUrl);
         advIntent.putExtra("title", advTitle);
+        advIntent.putExtra("imageSrc", imageSrc);
+        advIntent.putExtra("description", description);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(context,
                 notificationId, advIntent, PendingIntent.FLAG_UPDATE_CURRENT);
