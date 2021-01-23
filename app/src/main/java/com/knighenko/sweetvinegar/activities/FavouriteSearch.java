@@ -34,6 +34,7 @@ public class FavouriteSearch extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Pushy.listen(this);
         push = getIntent().getStringExtra("push");
         e_mail = getIntent().getStringExtra("e_mail");
 

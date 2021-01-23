@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.knighenko.sweetvinegar.R;
+import com.squareup.picasso.Picasso;
 
 public class AdvertisementActivity extends AppCompatActivity {
 
@@ -30,10 +31,23 @@ public class AdvertisementActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_advertisement);
         this.descriptionView = findViewById(R.id.textViewDescription);
+        this.titleView = findViewById(R.id.textViewTitleAdv);
         this.url=getIntent().getStringExtra("urlAdv");
         this.title=getIntent().getStringExtra("title");
-        descriptionView.setText(title);
+        this.imageSrc=getIntent().getStringExtra("imageSrc");
+        this.description=getIntent().getStringExtra("description");
+        titleView.setText(title);
+        paintImg(imageSrc);
     }
+
+    private void paintImg(String urlImg) {
+        if (urlImg.equals("No Img")) {
+            imageView.setImageResource(R.drawable.no_image);
+        } else {
+            Picasso.get().load(urlImg).resize(300, 300).centerCrop().into(imageView);
+        }
+    }
+
 
     public void advClick(View view) {
         Intent intent = new Intent(Intent.ACTION_VIEW);

@@ -20,7 +20,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Введите e-mail и придумайте пароль"
+        android:text="Введите логин и придумайте пароль"
         android:textAlignment="center"
         android:textColor="@color/purple_700"
         android:layout_marginBottom="50dp"/>
@@ -29,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
-        android:text="E-mail:"
+        android:text="Логин:"
         android:textColor="@color/purple_700" />
 
     <EditText
@@ -37,6 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
+        android:inputType="textPersonName"
         android:layout_marginBottom="30dp" />
 
     <TextView
@@ -51,6 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
+        android:inputType="textPassword"
         android:layout_marginBottom="30dp" />
 
     <Button
