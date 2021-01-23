@@ -19,7 +19,6 @@ public class AdvertisementActivity extends AppCompatActivity {
     private ImageView imageView;
 
 
-
     private String url;
     private String title;
     private String imageSrc;
@@ -32,10 +31,12 @@ public class AdvertisementActivity extends AppCompatActivity {
         setContentView(R.layout.activity_advertisement);
         this.descriptionView = findViewById(R.id.textViewDescription);
         this.titleView = findViewById(R.id.textViewTitleAdv);
-        this.url=getIntent().getStringExtra("urlAdv");
-        this.title=getIntent().getStringExtra("title");
-        this.imageSrc=getIntent().getStringExtra("imageSrc");
-        this.description=getIntent().getStringExtra("description");
+        this.imageView = findViewById(R.id.bigImageViewAdv);
+        this.url = getIntent().getStringExtra("urlAdv");
+        this.title = getIntent().getStringExtra("title");
+        this.imageSrc = getIntent().getStringExtra("imgSrc");
+        this.description = getIntent().getStringExtra("description");
+        descriptionView.setText(description);
         titleView.setText(title);
         paintImg(imageSrc);
     }

@@ -20,14 +20,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Pushy.listen(this);
-        if(SaveSharedPreference.getUserName(MainActivity.this).length() != 0)
-        {
-            System.out.println("--------------------------------------------------------Yes");
-        }
-        else
-        {
-            System.out.println("---------------------------------------------------------No");
-        }
+
+
     }
 
 
@@ -48,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
             toast.show();
         } else {
             String push =ConnectServer.connectToServerSearch("3:"+e_mail);
-            SaveSharedPreference.setUserName(MainActivity.this,e_mail);
+            SaveSharedPreference.setUserName(getApplicationContext(),e_mail);
+            SaveSharedPreference.setUserPush(getApplicationContext(),Boolean.valueOf(push));
             Intent intent = new Intent(this, FavouriteSearch.class);
             intent.putExtra("e_mail", e_mail);
             intent.putExtra("password", password);

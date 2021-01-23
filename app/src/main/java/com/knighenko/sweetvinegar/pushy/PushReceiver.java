@@ -23,7 +23,7 @@ public class PushReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         String advTitle = "MyApp";
         String advUrl = "Test notification";
-        String imageSrc = "No Img";
+        String imgSrc = "No Img";
         String description="Нет описания";
 
         // Attempt to extract the "message" property from the payload: {"message":"Hello World!"}
@@ -31,8 +31,8 @@ public class PushReceiver extends BroadcastReceiver {
         if (intent.getStringExtra("title") != null) {
             advTitle = intent.getStringExtra("title");
             advUrl = intent.getStringExtra("url");
-            advUrl = intent.getStringExtra("imageSrc");
-            advUrl = intent.getStringExtra("description");
+            imgSrc = intent.getStringExtra("imgSrc");
+            description = intent.getStringExtra("description");
         }
 
 
@@ -42,7 +42,7 @@ public class PushReceiver extends BroadcastReceiver {
                 | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         advIntent.putExtra("urlAdv", advUrl);
         advIntent.putExtra("title", advTitle);
-        advIntent.putExtra("imageSrc", imageSrc);
+        advIntent.putExtra("imgSrc", imgSrc);
         advIntent.putExtra("description", description);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(context,

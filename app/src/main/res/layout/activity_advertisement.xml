@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/purple_700"
+    android:background="@color/background"
     android:orientation="vertical"
     tools:context=".activities.AdvertisementActivity">
 
@@ -12,18 +12,20 @@
     <TextView
         android:id="@+id/textViewTitleAdv"
         style="@style/TextViewAdvTitle"
-        android:layout_marginTop="2dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp" />
 
     <ImageView
         android:id="@+id/bigImageViewAdv"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+           android:layout_height="300dp"
+        android:onClick="advClick"
         android:paddingBottom="5dp" />
 
     <TextView
         android:id="@+id/textViewDescription"
+        style="@style/TextViewAdvDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="advClick" />
