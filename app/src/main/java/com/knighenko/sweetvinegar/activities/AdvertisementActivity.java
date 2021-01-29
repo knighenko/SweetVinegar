@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -39,7 +41,10 @@ public class AdvertisementActivity extends AppCompatActivity {
         descriptionView.setText(description);
         titleView.setText(title);
         paintImg(imageSrc);
+
     }
+
+
 
     private void paintImg(String urlImg) {
         if (urlImg.equals("No Img")) {

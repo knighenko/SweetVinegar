@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,7 +8,14 @@
     android:orientation="vertical"
     android:background="@color/background"
     tools:context=".activities.FavouriteSearch">
+    <androidx.appcompat.widget.Toolbar
 
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="?attr/actionBarTheme"
+        tools:ignore="MissingConstraints" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="180dp"
@@ -16,7 +24,8 @@
         android:fontFamily="cursive"
         android:paddingVertical="70dp"
         android:textColor="#000"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        />
 
 
     <Button
