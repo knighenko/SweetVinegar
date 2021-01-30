@@ -43,24 +43,21 @@ public class FavouriteSearch extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
-        if(SaveSharedPreference.getUserName(FavouriteSearch.this).length() == 0)
-        {
+        if (SaveSharedPreference.getUserName(FavouriteSearch.this).length() == 0) {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
-        }
-        else
-        {
+        } else {
             Pushy.listen(this);
             e_mail = SaveSharedPreference.getUserName(getApplicationContext());
-            push=Boolean.valueOf(ConnectServer.connectToServerSearch("3:"+e_mail));
-            System.out.println("ssssssssssssssssssssssssssssssssssss=========="+e_mail);
-            System.out.println("ssssssssssssssssssssssssssssssssssss=========="+push);
+            push = Boolean.valueOf(ConnectServer.connectToServerSearch("3:" + e_mail));
+            System.out.println("ssssssssssssssssssssssssssssssssssss==========" + e_mail);
+            System.out.println("ssssssssssssssssssssssssssssssssssss==========" + push);
             setContentView(R.layout.activity_favourite_search);
             Toolbar toolbar = findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
 
             buttonSearch = findViewById(R.id.button_search);
-            if (push==false) {
+            if (push == false) {
                 buttonSearch.setText("Начать получать сообщения");
                 buttonSearch.setBackgroundColor(getResources().getColor(R.color.green));
             } else {
@@ -75,23 +72,25 @@ public class FavouriteSearch extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater=getMenuInflater();
-        menuInflater.inflate(R.menu.menu,menu);
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu, menu);
         return true;
     }
+
     /**
      * Метод реагирует на нажатие кнопки меню, в данном случае кнопки Последние обьявления
      */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.ten_advertisements) {
-            String response = ConnectServer.connectToServerSearch("5:" + "last" );
-            System.out.println(JsonToObject.getAdvertisements(response));
+            String jsonString = ConnectServer.connectToServerSearch("5:" + "last");
             Intent intent = new Intent(this, LastAdvertisements.class);
+            intent.putExtra("jsonString", jsonString);
             startActivity(intent);
         }
         return true;
     }
+
     /**
      * Method doing when button Search (Начать Мониторинг или Отменить мониторинг) onClick
      */
@@ -103,12 +102,12 @@ public class FavouriteSearch extends AppCompatActivity {
         String response = ConnectServer.connectToServerSearch("4:" + e_mail + ":" + String.valueOf(push));
 
         if (response.equals("true")) {
-            if (push==true) {
-                SaveSharedPreference.setUserPush(getApplicationContext(),false);
+            if (push == true) {
+                SaveSharedPreference.setUserPush(getApplicationContext(), false);
                 buttonSearch.setText("Отменить получать сообщения");
                 buttonSearch.setBackgroundColor(getResources().getColor(R.color.red));
             } else {
-                SaveSharedPreference.setUserPush(getApplicationContext(),true);
+                SaveSharedPreference.setUserPush(getApplicationContext(), true);
                 buttonSearch.setText("Начать получать сообщения");
                 buttonSearch.setBackgroundColor(getResources().getColor(R.color.green));
             }

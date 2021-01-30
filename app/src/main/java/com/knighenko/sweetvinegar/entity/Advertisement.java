@@ -92,9 +92,9 @@ public class Advertisement implements Parcelable {
      */
     @Override
     public String toString() {
-        StringBuilder stringBuffer = new StringBuilder("entity.Advertisement{");
-        stringBuffer.append("id='").append(id).append('\'').append(", title='").append(title).append('\'').append(", url='").append(url).append('\'').
-                append(", imageSrc='").append(imageSrc).append('\'').append(", description='").append(description).append('\'').append('}');
+        StringBuilder stringBuffer = new StringBuilder("{");
+        stringBuffer.append("\"id\":\"").append(id).append('\"').append(", \"title\":\"").append(title).append('\"').append(", \"url\":\"").append(url).append('\"').
+                append(", \"imageSrc\":\"").append(imageSrc).append('\"').append(", \"description\":\"").append(description).append('\"').append("}");
 
         return stringBuffer.toString();
     }

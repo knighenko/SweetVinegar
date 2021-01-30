@@ -18,15 +18,15 @@ public class JsonToObject {
      */
     public static ArrayList<Advertisement> getAdvertisements(String jsonString) {
         ArrayList<Advertisement> advertisements = new ArrayList<>();
-
-        Pattern logEntry = Pattern.compile("(\\{(.*?)\\})");
-        Matcher matchPattern = logEntry.matcher(jsonString);
+        String regEx = "\\{[^{}]*\\}";
+        Pattern logEntry = Pattern.compile(regEx);
+        Matcher matchPattern = logEntry.matcher(jsonString.replaceAll("\\s+"," "));
 
         while (matchPattern.find()) {
             ObjectMapper mapper = new ObjectMapper();
             Advertisement adv = null;
             try {
-                adv = mapper.readValue(matchPattern.group(1), Advertisement.class);
+                adv = mapper.readValue(matchPattern.group(), Advertisement.class);
                 advertisements.add(adv);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -35,4 +35,6 @@ public class JsonToObject {
         }
         return advertisements;
     }
+
+
 }
