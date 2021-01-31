@@ -21,11 +21,17 @@ import java.util.Collection;
 public class AdvAdapter extends RecyclerView.Adapter<AdvAdapter.ViewHolder> {
 
     private ArrayList<Advertisement> advertisementsList = new ArrayList<>();
+    private OnAdvertisementClickListener onAdvertisementClickListener;
 
+
+    public AdvAdapter(OnAdvertisementClickListener onAdvertisementClickListener) {
+        this.onAdvertisementClickListener = onAdvertisementClickListener;
+    }
 
     @NonNull
     @Override
     public AdvAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_advertisement, parent, false);
         return new ViewHolder(view);
     }
@@ -46,7 +52,7 @@ public class AdvAdapter extends RecyclerView.Adapter<AdvAdapter.ViewHolder> {
         return advertisementsList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+      class ViewHolder extends RecyclerView.ViewHolder {
         private TextView titleView;
         private TextView descriptionView;
         private ImageView imageView;
@@ -56,6 +62,20 @@ public class AdvAdapter extends RecyclerView.Adapter<AdvAdapter.ViewHolder> {
             titleView = (TextView) view.findViewById(R.id.textViewTitleAdv);
             descriptionView = (TextView) view.findViewById(R.id.textViewDescription);
             imageView = (ImageView) view.findViewById(R.id.bigImageViewAdv);
+            descriptionView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Advertisement adv = advertisementsList.get(getLayoutPosition());
+                    onAdvertisementClickListener.onAdvClick(adv);
+                }
+            });
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Advertisement adv = advertisementsList.get(getLayoutPosition());
+                    onAdvertisementClickListener.onAdvClick(adv);
+                }
+            });
         }
 
         public void bind(Advertisement adv) {
@@ -74,4 +94,8 @@ public class AdvAdapter extends RecyclerView.Adapter<AdvAdapter.ViewHolder> {
             }
         }
     }
+    public interface OnAdvertisementClickListener {
+        void onAdvClick(Advertisement advertisement);
+         }
+
 }

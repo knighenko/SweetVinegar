@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.knighenko.sweetvinegar.R;
@@ -29,7 +31,15 @@ public class LastAdvertisements extends AppCompatActivity {
         listAdvRecyclerView = findViewById(R.id.recyclerTenAdv);
         listAdvRecyclerView.setHasFixedSize(true);
         listAdvRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        advAdapter = new AdvAdapter();
+        AdvAdapter.OnAdvertisementClickListener onAdvertisementClickListener=new AdvAdapter.OnAdvertisementClickListener() {
+            @Override
+            public void onAdvClick(Advertisement advertisement) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(advertisement.getUrl()));
+                startActivity(intent);
+            }
+        };
+        advAdapter = new AdvAdapter(onAdvertisementClickListener);
         advAdapter.setListAdv(advertisementsList);
         listAdvRecyclerView.setAdapter(advAdapter);
 
